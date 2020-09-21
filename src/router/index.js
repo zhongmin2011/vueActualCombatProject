@@ -17,23 +17,70 @@ const router = new VueRouter({
     {
       path: '/home',
       name: 'Home',
-      redirect: '/welcome',
+      redirect: '/users',
       component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue'),
       children: [
         {
-          path: '/welcome',
-          name: 'welcome',
-          component: () => import(/* webpackChunkName: "about" */ '../components/welcome.vue')
+          path: '/users',
+          name: 'users',
+          component: () => import(/* webpackChunkName: "about" */ '../components/users.vue')
+        }
+      ]
+    },
+    {
+      path: '/role',
+      name: 'role',
+      redirect: '/roles',
+      component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue'),
+      children: [
+        {
+          path: '/roles',
+          name: 'roles',
+          component: () => import(/* webpackChunkName: "about" */ '../components/roles.vue')
+        },
+        {
+          path: '/rights',
+          name: 'rights',
+          component: () => import(/* webpackChunkName: "about" */ '../components/rights.vue')
+        }
+      ]
+    },
+    {
+      path: '/orders',
+      name: 'orders',
+      component: () => import(/* webpackChunkName: "about" */ '../components/orders.vue')
+    },
+    {
+      path: '/reports',
+      name: 'reports',
+      component: () => import(/* webpackChunkName: "about" */ '../components/reports.vue')
+    },
+    {
+      path: '/goods',
+      name: 'goods',
+      redirect: 'goodsList',
+      component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue'),
+      children: [
+        {
+          path: '/goodsList',
+          name: 'goodsList',
+          component: () => import(/* webpackChunkName: "about" */ '../components/goodsList.vue')
+        },
+        {
+          path: '/classParams',
+          name: 'classParams',
+          component: () => import(/* webpackChunkName: "about" */ '../components/classParams.vue')
+        },
+        {
+          path: '/productParams',
+          name: 'productParams',
+          component: () => import(/* webpackChunkName: "about" */ '../components/productParams.vue')
         }
       ]
     }
-    // {
-    //   path: '/homePage',
-    //   name: 'HomePage',
-    //   component: () => import(/* webpackChunkName: "about" */ '../views/HomePage.vue')
-    // }
   ]
 })
+
 router.beforeEach((to, from, next) => {
   if (to.path === '/login') return next()
   const tokenStr = window.sessionStorage.getItem('token')

@@ -11,27 +11,30 @@
       <el-container>
         <el-aside :width="isCollapse ? '64px' : '200px'">
           <div class="toggleButton" @click="toggleButton">|||</div>
+
           <el-col :span="24">
             <el-menu
               :collapse="isCollapse"
               unique-opened
-              default-active="2"
               v-for="item in navList"
               :key="item.id"
+              default-active="2"
+              class="el-menu-vertical-demo"
               @open="handleOpen"
               @close="handleClose"
-              background-color="#333744"
+              background-color="#545c64"
               text-color="#fff"
-              active-text-color="#409EFF"
-              :collapse-transition="false">
+              active-text-color="#ffd04b"
+              :collapse-transition="false"
+              router>
               <el-submenu :index="item.id">
                 <template slot="title">
-                  <i style="margin-right:5px" :class="navIcon[item.id]"></i>
+                  <i :class="navIcon[item.id]"></i>
                   <span>{{item.authName}}</span>
                 </template>
-                <el-submenu :index="itemNav.id" v-for="itemNav in item.children" :key="itemNav.id+''">
-                  <template slot="title">{{itemNav.authName}}</template>
-                </el-submenu>
+                <el-menu-item-group v-for="itemNav in item.children" :key="itemNav.path" :index="'/'+ itemNav.path">
+                  <el-menu-item :index="'/'+ itemNav.path">{{itemNav.authName}}</el-menu-item>
+                </el-menu-item-group>
               </el-submenu>
             </el-menu>
           </el-col>
@@ -46,12 +49,8 @@
 </template>
 
 <script>
-// import HomePage from './components/HomePage.vue'
 export default {
   name: 'Home',
-  // components: {
-  //   HomePage
-  // },
   data() {
     return {
       isCollapse: false,
@@ -76,12 +75,12 @@ export default {
             {
               authName: '角色列表',
               id: '104',
-              path: 'users'
+              path: 'roles'
             },
             {
               authName: '权限列表',
               id: '105',
-              path: 'users'
+              path: 'rights'
             }
           ]
         },
@@ -93,17 +92,17 @@ export default {
             {
               authName: '商品列表',
               id: '111',
-              path: 'users'
+              path: 'goodsList'
             },
             {
               authName: '分类参数',
               id: '121',
-              path: 'users'
+              path: 'classParams'
             },
             {
               authName: '商品参数',
               id: '131',
-              path: 'users'
+              path: 'productParams'
             }
           ]
         },
