@@ -11,14 +11,13 @@
       <el-container>
         <el-aside :width="isCollapse ? '64px' : '200px'">
           <div class="toggleButton" @click="toggleButton">|||</div>
-
           <el-col :span="24">
             <el-menu
               :collapse="isCollapse"
-              unique-opened
+              :unique-opened="true"
               v-for="item in navList"
               :key="item.id"
-              default-active="2"
+              :default-active="'/' + activePath"
               class="el-menu-vertical-demo"
               @open="handleOpen"
               @close="handleClose"
@@ -33,7 +32,7 @@
                   <span>{{item.authName}}</span>
                 </template>
                 <el-menu-item-group v-for="itemNav in item.children" :key="itemNav.path" :index="'/'+ itemNav.path">
-                  <el-menu-item :index="'/'+ itemNav.path">{{itemNav.authName}}</el-menu-item>
+                  <el-menu-item :index="'/'+ itemNav.path" @click="saveNavState(itemNav.path)">{{itemNav.authName}}</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
             </el-menu>
@@ -115,10 +114,18 @@ export default {
         '101': 'el-icon-s-goods',
         '102': 'el-icon-s-order',
         '145': 'el-icon-s-claim'
-      }
+      },
+      activePath: ''
     }
   },
+  created() {
+    this.activePath = window.sessionStorage.getItem('activePath')
+  },
   methods: {
+    saveNavState(value) {
+      window.sessionStorage.setItem('activePath', value)
+      console.log('我被点击了', value)
+    },
     logout() {
       window.sessionStorage.clear()
       this.$router.push('/login')

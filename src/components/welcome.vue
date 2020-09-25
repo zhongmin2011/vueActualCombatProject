@@ -1,6 +1,6 @@
 <template>
   <div>
-      我是wlcome界面
+      <h2>我是wlcome界面，欢迎光临</h2>
   </div>
 </template>
 <script>

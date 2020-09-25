@@ -17,9 +17,14 @@ const router = new VueRouter({
     {
       path: '/home',
       name: 'Home',
-      redirect: '/users',
+      // redirect: '/welcome',
       component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue'),
       children: [
+        {
+          path: '/welcome',
+          name: 'welcome',
+          component: () => import(/* webpackChunkName: "about" */ '../components/welcome.vue')
+        },
         {
           path: '/users',
           name: 'users',
